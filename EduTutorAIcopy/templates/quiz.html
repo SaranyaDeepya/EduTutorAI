@@ -1,0 +1,76 @@
+quiz
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quiz Output</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f9ff;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.4;
+        }
+        .quiz-container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 25px;
+            margin: 0 auto;
+            max-width: 700px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 1.8rem;
+        }
+        .quiz-content {
+            white-space: pre-wrap;
+        }
+        .question {
+            font-weight: bold;
+            margin: 20px 0 10px 0;
+            color: #2c3e50;
+            font-size: 1.1rem;
+        }
+        .option {
+            margin: 6px 0 6px 20px;
+            padding-left: 10px;
+        }
+        .answers {
+            margin-top: 30px;
+            padding: 15px;
+            background-color: #f0f7ff;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+        .home-link {
+            display: inline-block;
+            margin-top: 30px;
+            color: #3498db;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .home-link:hover {
+            text-decoration: underline;
+        }
+        hr {
+            border: 0;
+            height: 1px;
+            background-color: #e0e0e0;
+            margin: 25px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <h1>Quiz Output</h1>
+        <div class="quiz-content">
+            {{ quiz|safe }}
+        </div>
+        <hr>
+        <a href="/" class="home-link">Back to Home</a>
+    </div>
+</body>
+</html>

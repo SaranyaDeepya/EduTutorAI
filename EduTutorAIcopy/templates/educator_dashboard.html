@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Educator Dashboard</title>
+    <style>
+        body {
+            background-color: #e6f2ff; /* Light blue background */
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            width: 80%;
+            max-width: 800px;
+        }
+        h2 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #3498db;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        tr:hover {
+            background-color: #e6f7ff;
+        }
+        .btn {
+            background-color: #3498db;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 20px;
+        }
+        .btn:hover {
+            background-color: #2980b9;
+        }
+        .quiz-container {
+            margin-top: 30px;
+            width: 100%;
+        }
+        .question {
+            margin-bottom: 15px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+        }
+        .correct-answer {
+            color: green;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Educator Dashboard</h2>
+        
+        <h3>Student Results</h3>
+        <table>
+            <tr>
+                <th>Student Email</th>
+                <th>Topic</th>
+                <th>Score</th>
+            </tr>
+            {% for q in quiz_data %}
+            <tr>
+                <td>{{ q.email }}</td>
+                <td>{{ q.topic }}</td>
+                <td>{{ q.score }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        
+        <div class="quiz-container">
+            <h3>Quiz Questions</h3>
+            <form id="quizForm">
+                {% for question in questions %}
+                <div class="question">
+                    <p><strong>{{ question.question }}</strong></p>
+                    {% for option in question.options %}
+                    <div>
+                        <input type="radio" name="q{{ loop.index }}" value="{{ option }}">
+                        <label>{{ option }}</label>
+                    </div>
+                    {% endfor %}
+                    <div class="correct-answer" style="display: none;">
+                        Correct answer: {{ question.answer }}
+                    </div>
+                </div>
+                {% endfor %}
+                <button type="button" class="btn" onclick="submitQuiz()">Submit Quiz</button>
+            </form>
+        </div>
+        
+        <a href="/" class="btn">Back to Home</a>
+    </div>
+
+    <script>
+        function submitQuiz() {
+            // Show all correct answers
+            document.querySelectorAll('.correct-answer').forEach(el => {
+                el.style.display = 'block';
+            });
+            
+            // Disable all radio buttons after submission
+            document.querySelectorAll('input[type="radio"]').forEach(el => {
+                el.disabled = true;
+            });
+            
+            // Change submit button text
+            document.querySelector('button[type="button"]').textContent = 'Quiz Submitted';
+            document.querySelector('button[type="button"]').disabled = true;
+        }
+    </script>
+</body>
+</html>

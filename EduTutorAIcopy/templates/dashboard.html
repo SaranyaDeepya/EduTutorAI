@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head><title>Educator Dashboard</title></head>
+<body>
+  <h2>Your Google Classroom Courses</h2>
+  <ul>
+    {% for course in courses %}
+      <li>{{ course.name }}</li>
+    {% endfor %}
+  </ul>
+  <a href="/">Back to Home</a>
+</body>
+</html>

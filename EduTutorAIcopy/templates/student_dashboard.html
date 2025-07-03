@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f9ff;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.5;
+        }
+        .dashboard-container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 25px;
+            margin: 0 auto;
+            max-width: 800px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 1.8rem;
+        }
+        h3 {
+            color: #3498db;
+            margin: 25px 0 15px 0;
+            font-size: 1.3rem;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0 0 30px 0;
+        }
+        li {
+            padding: 8px 0;
+            margin-left: 20px;
+            position: relative;
+            font-size: 1.1rem;
+        }
+        li:before {
+            content: "•";
+            color: #3498db;
+            font-size: 1.5rem;
+            position: absolute;
+            left: -20px;
+            top: 3px;
+        }
+        .quiz-section {
+            margin: 30px 0;
+        }
+        .quiz-form {
+            margin: 20px 0;
+        }
+        input[type="text"] {
+            padding: 10px;
+            width: 300px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        .quiz-history {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        .quiz-history th {
+            background-color: #3498db;
+            color: white;
+            padding: 10px;
+            text-align: left;
+        }
+        .quiz-history td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        .quiz-history tr:nth-child(even) {
+            background-color: #f5f9ff;
+        }
+        .home-link {
+            display: inline-block;
+            margin-top: 30px;
+            color: #3498db;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .home-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <h2>Welcome, {{ name }}</h2>
+        
+        <h3>Your Synced Courses from Google Classroom:</h3>
+        <ul>
+            {% for course in courses %}
+                <li>{{ course.name }}</li>
+            {% endfor %}
+        </ul>
+        
+        <div class="quiz-section">
+            <h3>Generate a New Quiz</h3>
+            <form class="quiz-form" method="POST" action="/quiz">
+                <input type="text" name="user_input" placeholder="Enter a topic" required>
+                <button type="submit">Generate Quiz</button>
+            </form>
+        </div>
+        
+        <div class="quiz-history-section">
+            <h3>Your Quiz History</h3>
+            <table class="quiz-history">
+                <tr>
+                    <th>Topic</th>
+                    <th>Score</th>
+                    <th>Date</th>
+                </tr>
+                {% for quiz in quiz_history %}
+                <tr>
+                    <td>{{ quiz.topic }}</td>
+                    <td>{{ quiz.score if quiz.score is not none else 'None' }}</td>
+                    <td>{{ quiz.date }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+        
+        <a href="/" class="home-link">Back to Home</a>
+    </div>
+</body>
+</html>
